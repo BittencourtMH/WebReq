@@ -44,11 +44,11 @@ class Projeto {
         $this->usuarios = $usuarios;
     }
 
-    function __construct($nome, $data_inicio, $data_fim, $usuarios) {
+    function __construct($nome, $data_inicio, $data_fim) {
         $this->nome = $nome;
         $this->data_inicio = $data_inicio;
         $this->data_fim = $data_fim;
-        $this->usuarios = $usuarios;
+       
     }
 
 }

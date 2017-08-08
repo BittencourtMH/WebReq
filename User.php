@@ -1,10 +1,6 @@
 <?php
 
-/**
- * Description of Usuário
- *
- * @author sergio
- */
+
 class User {
 
     private $nomeUsuario;
