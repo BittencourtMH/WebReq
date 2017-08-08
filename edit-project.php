@@ -8,8 +8,7 @@
         <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="estilo.css" rel="stylesheet">
     </head>
-    <body>
-                <nav class="navbar navbar-inverse navbar-static-top">
+    <body><nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barra" aria-expanded="false">
@@ -35,36 +34,28 @@
             </div>
         </nav>
         <div class="container margin-bottom-medium">
-            <h1 class="text-center margin-bottom-medium">Requirements</h1>
-            <table class="table table-bordered">
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Version</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Date modified</th>
-                    
-                </tr>
-                <tr>
-                    <td>RF-1</td>
-                    <td><a href="/webreq/edit-requirement.html">Sign in</a></td>
-                    <td>1.0</td>
-                    <td>Finished</td>
-                    <td>High</td>
-                    <td>2 May 2017</td>
-                </tr>
-                <tr>
-                    <td>RF-2</td>
-                    <td><a href="/webreq/edit-requirement.html">Sign out</a></td>
-                    <td>1.0</td>
-                    <td>Finished</td>
-                    <td>High</td>
-                    <td>2 May 2017</td>
-                </tr>
-            </table>
+            <h1 class="text-center margin-bottom-medium">Create project</h1>
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+                <form method="POST" action="../controller/controle_projeto2.php">
+
+                    <div class="form-group">
+                        <label for="name">Project name</label>
+                        <input class="form-control" id="name" type="text" placeholder="Project name" name="project_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="start-date">Start date</label>
+                        <input class="form-control" id="start-date" type="date" name="start_date">
+                    </div>
+                    <div class="form-group margin-bottom-medium">
+                        <label for="end-date">End date</label>
+                        <input class="form-control" id="end-date" type="date" name="end_date">
+                    </div>
+                    <button class="btn btn-primary center-block" type="submit">Save</button>
+
+                </form>
+            </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
-</html>
+</html> 

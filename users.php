@@ -1,3 +1,4 @@
+<?php include '../controller/controller_users.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -9,7 +10,7 @@
         <link href="estilo.css" rel="stylesheet">
     </head>
     <body>
-                <nav class="navbar navbar-inverse navbar-static-top">
+        <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barra" aria-expanded="false">
@@ -35,33 +36,15 @@
             </div>
         </nav>
         <div class="container margin-bottom-medium">
-            <h1 class="text-center margin-bottom-medium">Requirements</h1>
+            <h1 class="text-center margin-bottom-medium">Users</h1>
             <table class="table table-bordered">
                 <tr>
-                    <th>ID</th>
+                    <th>Username</th>
                     <th>Name</th>
-                    <th>Version</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Date modified</th>
-                    
                 </tr>
-                <tr>
-                    <td>RF-1</td>
-                    <td><a href="/webreq/edit-requirement.html">Sign in</a></td>
-                    <td>1.0</td>
-                    <td>Finished</td>
-                    <td>High</td>
-                    <td>2 May 2017</td>
-                </tr>
-                <tr>
-                    <td>RF-2</td>
-                    <td><a href="/webreq/edit-requirement.html">Sign out</a></td>
-                    <td>1.0</td>
-                    <td>Finished</td>
-                    <td>High</td>
-                    <td>2 May 2017</td>
-                </tr>
+                
+                <?php writeAll(); ?>
+
             </table>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
