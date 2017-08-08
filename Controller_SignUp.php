@@ -4,7 +4,6 @@
         <title>title</title>
     </head>
     <body>
-
         <?php
         $host = "localhost";
         $user = "root";
@@ -13,17 +12,16 @@
         $conexao = mysql_connect($host, $user, $pass) or die(mysql_error());
         mysql_select_db($banco) or die(mysql_error());
         ?>
-
         <?php
         $ja_existe_no_banco = false;
         ?>
 
         <?php
-        include 'User.php';
+        include '../model/User.php';
         $temp_user = new User();
 
-        $name = $_POST['name'];
-        $consulta_sql = mysql_query("SELECT * FROM users WHERE name = '$name'");
+        $username = $_POST['username'];
+        $consulta_sql = mysql_query("SELECT * FROM users WHERE username = '$username'");
 
         if (mysql_num_rows($consulta_sql) > 0) {
             $ja_existe_no_banco = true;
@@ -34,13 +32,14 @@
             $temp_user->set_password(htmlspecialchars($_POST['password']));
             $sql = mysql_query("INSERT INTO users(name,username,password) VALUES('{$temp_user->get_name()}','{$temp_user->get_nameUser()}','{$temp_user->get_password()}')");
             echo "successfull";
+            header("location:../index.php");
         } else {
             if ($ja_existe_no_banco == true) {
+                echo "<script>alert(' $name already registered ')</script>";
                 session_start();
-
-                $_SESSION['ja_existe_no_banco'] = $name;
+                $_SESSION['ja_cadastrado'] = $username;
+                header("location:../view/SignUpView.php");
             }
-            header("location:SignUp_error.php");
         }
         ?>
 
