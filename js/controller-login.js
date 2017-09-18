@@ -1,0 +1,24 @@
+$(document).ready(function()
+{
+    $('#form-login').submit(function()
+    {
+        success=true;
+        if($('#username').val()==='')
+        {
+            $('#help-username').removeClass('d-none');
+            success=false;
+        }
+        else
+            $('#help-username').addClass('d-none');
+        $('#form-username').addClass('was-validated');
+        if($('#password').val()==='')
+        {
+            $('#help-password').removeClass('d-none');
+            success=false;
+        }
+        else
+            $('#help-password').addClass('d-none');
+        $('#form-password').addClass('was-validated');
+        return success;
+    });
+});

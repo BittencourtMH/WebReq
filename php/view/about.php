@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>WebReq - Requirements Management System</title>
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/estilo.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barra" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">WebReq</a>
+                </div>
+                <div class="collapse navbar-collapse" id="barra">
+                    <ul class="nav navbar-nav">
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="users.html">Users</a></li>
+                        <li><a href="#">Help</a></li>
+                        <li class="active"><a href="about.html">About</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">    
+                        <li><a href="settings.html">Settings</a></li>
+                        <li><a href="index.html">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container text-center margin-bottom-medium">
+            <h1 class="margin-bottom-medium">WebReq</h1>
+            <h3>Version</h3>
+            <h5>0.1 Alpha</h5>
+            <h3>Update</h3>
+            <h5>19 June 2017</h5>
+            <h3>Developers</h3>
+            <h5>Marcelo Henrique Bittencourt</h5>
+            <h5>Sergio Souza Novak</h5>
+            <h3>License</h3>
+            <h5><a href="https://github.com/marcelohbittencourt/WebReq/blob/master/LICENSE">GNU Affero General Public License</a></h5>
+            <h3>Source code</h3>
+            <h5><a href="https://github.com/marcelohbittencourt/WebReq">GitHub</a></h5>
+            <h3>Third-party libraries</h3>
+            <h5>Bootstrap: <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE">MIT License</a></h5>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
