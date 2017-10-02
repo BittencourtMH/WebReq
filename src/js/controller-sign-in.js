@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-    $('#form-login').submit(function()
+    $('#form-sign-in').submit(function()
     {
         success=true;
         if($('#username').val()==='')
