@@ -79,4 +79,24 @@ class User
     {
         $this->language=$language;
     }
+    public function validateUsername()
+    {
+        return strlen($this->username)>0 && strlen($this->username)<=30 && mb_check_encoding($this->username, 'ASCII') && strpos($this->username, ' ')===false;
+    }
+    public function validatePassword()
+    {
+        return strlen($this->password)>=8 && strlen($this->password)<=30 && mb_check_encoding($this->password, 'ASCII') && strpos($this->password, ' ')===false;
+    }
+    public function validateName()
+    {
+        return strlen($this->name)>0 && strlen($this->name)<=100;
+    }
+    public function validate()
+    {
+        return $this->validateUsername() && $this->validatePassword() && $this->validateName();
+    }
+    public static function encryptPassword($password)
+    {
+        return hash('sha256', $password, true);
+    }
 }

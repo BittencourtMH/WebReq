@@ -5,7 +5,7 @@ class Page
     public static function header($page)
     {
         session_start();
-        if($page!=='unlogged' && !isset($_SESSION['user']))
+        if($page!== 'unlogged' && !isset($_SESSION['user']))
             header('location: sign-in.php');
         echo '<!DOCTYPE html>
             <html lang="en">
@@ -24,40 +24,44 @@ class Page
                         </button>
                         <div class="collapse navbar-collapse">
                             <ul class="navbar-nav mr-auto">';
-        if($page!=='unlogged'):
+        if($page!== 'unlogged'):
             echo '<li class="nav-item">
                     <a class="nav-link';
-            if($page==='projects')
+            if($page=== 'projects')
                 echo ' active';
-            echo '" href="/webreq/php/view/projects.php">Projects</a>
+            echo '" href="projects.php">Projects</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link';
-            if($page==='users')
+            if($page=== 'users')
                 echo ' active';
-            echo '" href="/webreq/php/view/users.php">Users</a>
+            echo '" href="users.php">Users</a>
                 </li>';
         endif;
         echo '<li class="nav-item">
                     <a class="nav-link" href="#">Help</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/webreq/php/view/about.php">About</a>
+                    <a class="nav-link" href="about.php">About</a>
                 </li>
             </ul>';
-        if($page!=='unlogged')
+        if($page!== 'unlogged')
+        {
             echo '<ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/webreq/php/view/settings.php">Settings</a>
+                        <a class="nav-link';
+            if($page==='settings')
+                echo ' active';
+            echo '" href="profile.php">Settings</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../controller/controller-sign-out.php">Sign out</a>
                     </li>
                 </ul>';
+        }
         echo '</div>
             </nav>';
     }
-    
     public static function footer($page)
     {
         echo '<script src="../../third-party/jquery/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -66,5 +70,23 @@ class Page
                     <script type="text/javascript" src="../../js/controller-'.$page.'.js"></script>
                 </body>
             </html>';
+    }
+    public static function settings($page)
+    {
+        echo '<h1 class="text-center margin-top-small">Settings</h1>
+            <nav class="nav nav-pills justify-content-center margin-top-small margin-bottom-small">
+                <a class="nav-link';
+        if($page==='profile')
+            echo ' active';
+        echo '" href="profile.php">Profile</a>
+            <a class="nav-link';
+        if($page==='password')
+            echo ' active';
+        echo '" href="password.php">Password</a>
+            <a class="nav-link';
+        if($page==='account')
+            echo ' active';
+        echo '" href="account.php">Account</a>
+            </nav>';
     }
 }

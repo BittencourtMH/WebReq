@@ -2,14 +2,14 @@
 
 class TimeZone
 {
-    public static function get()
+    public static function get($selected)
     {
-        foreach(DateTimeZone::listIdentifiers() as &$tz)
+        foreach(DateTimeZone::listIdentifiers() as &$time_zone)
         {
-            if($tz!=='UTC')
-                echo '<option value="'.$tz.'">'.$tz.'</option>';
+            if($time_zone!==$selected)
+                echo '<option value="'.$time_zone.'">'.$time_zone.'</option>';
             else
-                echo '<option value="'.$tz.'" selected>'.$tz.'</option>';
+                echo '<option value="'.$time_zone.'" selected>'.$time_zone.'</option>';
         }
     }
 }

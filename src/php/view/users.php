@@ -13,7 +13,7 @@ Page::header('users');
             <th>Name</th>
         </tr>
         <?php
-        ControllerUsers::get();
+        ControllerUsers::getAll();
 
         ?>
     </table>

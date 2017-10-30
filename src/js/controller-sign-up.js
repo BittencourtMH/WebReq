@@ -17,7 +17,17 @@ $(document).ready(function()
             success=false;
         }
         else
+        {
             $('#help-password').addClass('d-none');
+            if($('#password2').val()!==$('#password').val())
+            {
+                $('#help-password2').removeClass('d-none');
+                success=false;
+            }
+            else
+                $('#help-password2').addClass('d-none');
+            $('#form-password2').addClass('was-validated');
+        }
         $('#form-password').addClass('was-validated');
         if($('#name').val()==='')
         {

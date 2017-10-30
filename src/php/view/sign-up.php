@@ -10,13 +10,18 @@ Page::header("unlogged");
         <form class="margin-bottom-medium" id="form-sign-up" action="../controller/controller-sign-up.php" method="post" novalidate>                
             <div class="form-group" id="form-username">
                 <label for="username">Username</label>
-                <input class="form-control" id="username" name="username" type="text" placeholder="Username" value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>" required />
+                <input class="form-control" id="username" name="username" type="text" placeholder="Username" required />
                 <div class="invalid-feedback" id="help-username">Please provide a valid username.</div>
             </div>
             <div class="form-group" id="form-password">
                 <label for="password">Password</label>
                 <input class="form-control" id="password" name="password" type="password" placeholder="Password" required>
                 <div class="invalid-feedback" id="help-password">Please provide a valid password.</div>
+            </div>
+            <div class="form-group" id="form-password2">
+                <label for="password2">Retype password</label>
+                <input class="form-control" id="password2" name="password2" type="password" placeholder="Retype password" required>
+                <div class="invalid-feedback" id="help-password2">Passwords do not match.</div>
             </div>
             <div class="form-group" id="form-name">
                 <label for="name">Name</label>
@@ -25,7 +30,7 @@ Page::header("unlogged");
             </div>
             <div class="form-group" id="form-email">
                 <label for="email">Email</label>
-                <input class="form-control" id="email" name="email" type="text" placeholder="Email" required>
+                <input class="form-control" id="email" name="email" type="email" placeholder="Email" required>
                 <div class="invalid-feedback" id="help-email">Please provide a valid email.</div>
             </div>
             <div class="form-group" id="form-language">
@@ -40,18 +45,18 @@ Page::header("unlogged");
                 <label for="time-zone">Time zone</label>
                 <select class="form-control form-control-sm" id="time-zone" name="time-zone">
                     <?php
-                    TimeZone::get();
+                    TimeZone::get('America/Sao_Paulo');
 
                     ?>
                 </select>
             </div>
             <div class="form-group" id="form-educational">
                 <label for="educational">Educational background</label>
-                <textarea class="form-control" id="educational" name="educational" rows="10"></textarea>
+                <textarea class="form-control" id="educational" name="educational" placeholder="Educational background" rows="10"></textarea>
             </div>
             <div class="form-group" id="form-professional">
                 <label for="professional">Professional experience</label>
-                <textarea class="form-control" id="professional" name="professional" rows="10"></textarea>
+                <textarea class="form-control" id="professional" name="professional" placeholder="Professional experience" rows="10"></textarea>
             </div>
             <div class="text-center">
                 <button class="btn btn-success margin-top-small" id="sign-up" type="submit">Sign up</button>
