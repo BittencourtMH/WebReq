@@ -2,7 +2,7 @@
 include 'Page.php';
 include 'TimeZone.php';
 
-Page::header("unlogged");
+Page::header('unlogged');
 ?>
 <div class="container margin-bottom-medium">
     <h1 class="text-center margin-top-small margin-bottom-medium">Sign up</h1>
