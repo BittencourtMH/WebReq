@@ -1,23 +1,26 @@
 <?php
-
-include '../model/persistence/UserDAO.php';
+include_once $root.'model/persistence/UserDAO.php';
 
 class ControllerUsers
 {
-    public static function get($username)
+    public static function get($id)
     {
-        return UserDAO::read($username);
+        return UserDAO::read($id);
     }
-    
     public static function getAll()
     {
-        $result=UserDAO::readAll();
-        while($row=$result->fetch_array(MYSQLI_NUM))
+        $users=UserDAO::readAll();
+        foreach($users as $user)
         {
-            echo '<tr>
-                    <td><a href="user.php?username='.$row[0].'">'.$row[0].'</td>
-                    <td>'.$row[1].'</td>
-                </tr>';
+            $id=$user->getId();
+            $username=$user->getUsername();
+            $name=$user->getName();
+            $type=$user->type();
+            echo "<tr>
+                    <td><a href=\"user.php?id=$id\">$username</td>
+                    <td>$name</td>
+                    <td>$type</td>
+                </tr>";
         }
     }
 }

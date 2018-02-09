@@ -2,141 +2,169 @@
 
 class Requirement
 {
-    private $project, $author;
-    private $type, $status, $priority, $complexity;
-    private $number;
-    private $name, $solicitor, $description, $notes;
-    private $version;
-    private $date_created, $date_modified;
-    private $dependencies;
-    private $attachments;
-
-    public function get_project()
+    private $id, $project, $type, $number, $name, $version, $status, $priority, $complexity, $solicitor, $author, $dateCreated, $dateModified, $description, $notes;
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getProject()
     {
         return $this->project;
     }
-    public function get_author()
-    {
-        return $this->author;
-    }
-    public function get_type()
+    public function getType()
     {
         return $this->type;
     }
-    public function get_status()
-    {
-        return $this->status;
-    }
-    public function get_priority()
-    {
-        return $this->priority;
-    }
-    public function get_complexity()
-    {
-        return $this->complexity;
-    }
-    public function get_number()
+    public function getNumber()
     {
         return $this->number;
     }
-    public function get_name()
+    public function getName()
     {
         return $this->name;
     }
-    public function get_solicitor()
-    {
-        return $this->solicitor;
-    }
-    public function get_description()
-    {
-        return $this->description;
-    }
-    public function get_notes()
-    {
-        return $this->notes;
-    }
-    public function get_version()
+    public function getVersion()
     {
         return $this->version;
     }
-    public function get_date_created()
+    public function getStatus()
     {
-        return $this->date_created;
+        return $this->status;
     }
-    public function get_date_modified()
+    public function getPriority()
     {
-        return $this->date_modified;
+        return $this->priority;
     }
-    public function get_dependencies()
+    public function getComplexity()
     {
-        return $this->dependencies;
+        return $this->complexity;
     }
-    public function get_attachments()
+    public function getSolicitor()
     {
-        return $this->attachments;
+        return $this->solicitor;
     }
-    public function set_project($project)
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+    public function getDateModified()
+    {
+        return $this->dateModified;
+    }
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+    public function setId($id)
+    {
+        $this->id=$id;
+    }
+    public function setProject($project)
     {
         $this->project=$project;
     }
-    public function set_author($author)
-    {
-        $this->author=$author;
-    }
-    public function set_type($type)
+    public function setType($type)
     {
         $this->type=$type;
     }
-    public function set_status($status)
-    {
-        $this->status=$status;
-    }
-    public function set_priority($priority)
-    {
-        $this->priority=$priority;
-    }
-    public function set_complexity($complexity)
-    {
-        $this->complexity=$complexity;
-    }
-    public function set_number($number)
+    public function setNumber($number)
     {
         $this->number=$number;
     }
-    public function set_name($name)
+    public function setName($name)
     {
         $this->name=$name;
     }
-    public function set_solicitor($solicitor)
-    {
-        $this->solicitor=$solicitor;
-    }
-    public function set_description($description)
-    {
-        $this->description=$description;
-    }
-    public function set_notes($notes)
-    {
-        $this->notes=$notes;
-    }
-    public function set_version($version)
+    public function setVersion($version)
     {
         $this->version=$version;
     }
-    public function set_date_created($date_created)
+    public function setStatus($status)
     {
-        $this->date_created=$date_created;
+        $this->status=$status;
     }
-    public function set_date_modified($date_modified)
+    public function setPriority($priority)
     {
-        $this->date_modified=$date_modified;
+        $this->priority=$priority;
     }
-    public function set_dependencies($dependencies)
+    public function setComplexity($complexity)
     {
-        $this->dependencies=$dependencies;
+        $this->complexity=$complexity;
     }
-    public function set_attachments($attachments)
+    public function setSolicitor($solicitor)
     {
-        $this->attachments=$attachments;
+        $this->solicitor=$solicitor;
+    }
+    public function setAuthor($author)
+    {
+        $this->author=$author;
+    }
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated=$dateCreated;
+    }
+    public function setDateModified($dateModified)
+    {
+        $this->dateModified=$dateModified;
+    }
+    public function setDescription($description)
+    {
+        $this->description=$description;
+    }
+    public function setNotes($notes)
+    {
+        $this->notes=$notes;
+    }
+    public function code()
+    {
+        if($this->type=== 'F')
+            return 'FR-'.$this->number;
+        if($this->type=== 'N')
+            return 'NFR-'.$this->number;
+        return 'OR-'.$this->number;
+    }
+    public function type()
+    {
+        if($this->type=== 'F')
+            return FUNCTIONAL;
+        if($this->type=== 'N')
+            return NON_FUNCTIONAL;
+        return ORGANIZATIONAL;
+    }
+    public function status()
+    {
+        if($this->status=== 'S')
+            return SUBMITTED;
+        if($this->status=== 'P')
+            return PENDING;
+        return FINISHED;
+    }
+    public function priority()
+    {
+        switch($this->priority)
+        {
+            case 0: return '';
+            case 1: return LOW;
+            case 2: return MEDIUM;
+            case 3: return HIGH;
+        }
+    }
+    public function complexity()
+    {
+        switch($this->complexity)
+        {
+            case 0: return '';
+            case 1: return LOW;
+            case 2: return MEDIUM;
+            case 3: return HIGH;
+        }
     }
 }
