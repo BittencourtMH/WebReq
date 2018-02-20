@@ -113,7 +113,7 @@ class User
     }
     public function link()
     {
-        return "<a href=\"user.php?id=$this->id\">$this->name</a>";
+        return "<a href='user.php?id=$this->id'>$this->name</a>";
     }
     public function type()
     {

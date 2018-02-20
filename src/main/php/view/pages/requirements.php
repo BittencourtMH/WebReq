@@ -1,14 +1,12 @@
 <?php
 $section='projects';
-$subsection=$page='requirements';
+$subsection='requirements';
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-require_once $root.'controller/ControllerProjects.php';
-require_once $root.'controller/ControllerRequirements.php';
-$project=ControllerProjects::get(htmlspecialchars(filter_input(INPUT_GET, 'id')));
-$manager=$project->getManager();
-require_once $root.'view/templates/header.php';
+require_once $root.'view/templates/language.php';
+$project=ControllerProject::get(htmlspecialchars(filter_input(INPUT_GET, 'id')));
+$title=$project->getName();
 $nav=['projects.php'=>PROJECTS, ''=>$project->getName()];
-require_once $root.'view/templates/path.php';
+require_once $root.'view/templates/header.php';
 ?>
 <div class="row my-4">
     <?php require_once $root.'view/templates/project.php'?>
@@ -25,7 +23,7 @@ require_once $root.'view/templates/path.php';
                 <th><?php echo DATE_MODIFIED?></th>
             </tr>
             <?php
-            ControllerRequirements::getAll($project->getId());
+            ControllerRequirement::getAll($project->getId());
             ?>
         </table>
     </div>

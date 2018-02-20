@@ -1,9 +1,7 @@
 <?php
 date_default_timezone_set('UTC');
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-include_once $root.'model/persistence/ProjectDAO.php';
-include_once $root.'model/persistence/RequirementDAO.php';
-session_start();
+require_once $root.'model/persistence/RequirementDAO.php';
 $project=htmlspecialchars(filter_input(INPUT_POST, 'project'));
 $date=new DateTime();
 $requirement=new Requirement();

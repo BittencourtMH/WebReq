@@ -1,17 +1,14 @@
 <?php
 $section='projects';
 $subsection='requirements';
-$page='requirement';
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-require_once $root.'controller/ControllerProjects.php';
-require_once $root.'controller/ControllerRequirements.php';
-require_once $root.'controller/ControllerUsers.php';
-$requirement=ControllerRequirements::get(htmlspecialchars(filter_input(INPUT_GET, 'id')));
-$project=ControllerProjects::get($requirement->getProject());
-$author=ControllerUsers::get($requirement->getAuthor());
-require_once $root.'view/templates/header.php';
+require_once $root.'view/templates/language.php';
+$requirement=ControllerRequirement::get(htmlspecialchars(filter_input(INPUT_GET, 'id')));
+$project=ControllerProject::get($requirement->getProject());
+$author=ControllerUser::get($requirement->getAuthor());
+$title=$requirement->getName();
 $nav=['projects.php'=>PROJECTS, 'project-info.php?id='.$project->getId()=>$project->getName(), ''=>$requirement->getName()];
-require_once $root.'view/templates/path.php';
+require_once $root.'view/templates/header.php';
 ?>
 <div class="row my-4">
     <?php require_once $root.'view/templates/project.php'?>

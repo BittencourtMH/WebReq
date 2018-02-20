@@ -1,6 +1,6 @@
 <?php
-include_once $root.'model/entities/Requirement.php';
-include_once 'Connection.php';
+require_once $root.'model/entities/Requirement.php';
+require_once 'Connection.php';
 
 class RequirementDAO
 {
@@ -20,7 +20,7 @@ class RequirementDAO
         $date_modified=$requirement->getDateModified()->format('Y-m-d H:i:s.u');
         $description=$requirement->getDescription();
         $notes=$requirement->getNotes();
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('INSERT INTO requirement(project, type, number, name, version, status, priority, complexity, solicitor, author, date_created, date_modified, description, notes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'))
             die($connection->error);
         if(!$statement->bind_param('isisssiisissss', $project, $type, $number, $name, $version, $status, $priority, $complexity, $solicitor, $author, $date_created, $date_modified, $description, $notes) || !$statement->execute())
@@ -29,7 +29,7 @@ class RequirementDAO
     }
     public static function read($id)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT project, type, number, name, version, status, priority, complexity, solicitor, author, date_created, date_modified, description, notes FROM requirement WHERE id=?;'))
             die($connection->error);
         if(!$statement->bind_param('i', $id) || !$statement->execute() || !$result=$statement->get_result())
@@ -58,7 +58,7 @@ class RequirementDAO
     }
     public static function readAll($project)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT id, type, number, name, version, status, priority, date_modified FROM requirement WHERE project=?;'))
             die($connection->error);
         if(!$statement->bind_param('i', $project) || !$statement->execute() || !$result=$statement->get_result())
@@ -91,7 +91,7 @@ class RequirementDAO
         $description=$requirement->getDescription();
         $notes=$requirement->getNotes();
         $id=$requirement->getId();
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('UPDATE requirement SET name=?, version=?, status=?, priority=?, complexity=?, solicitor=?, date_modified=?, description=?, notes=? WHERE id=?;'))
             die($connection->error);
         if(!$statement->bind_param('sssiissssi', $name, $version, $status, $priority, $complexity, $solicitor, $date_modified, $description, $notes, $id) || !$statement->execute())
@@ -100,7 +100,7 @@ class RequirementDAO
     }
     public static function delete($id)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('DELETE FROM requirement WHERE id=?;'))
             die($connection->error);
         if(!$statement->bind_param('i', $id) || !$statement->execute())
@@ -109,7 +109,7 @@ class RequirementDAO
     }
     public static function nextNumber($type)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT MAX(number) FROM requirement WHERE type=?;'))
             die($connection->error);
         if(!$statement->bind_param('s', $type) || !$statement->execute() || !$result=$statement->get_result())

@@ -1,5 +1,4 @@
 <?php
-
 require __DIR__."/../../../../src/main/php/model/entities/User.php";
 
 class ValidateNameTest extends PHPUnit_Framework_TestCase

@@ -1,7 +1,6 @@
 <?php
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-include_once $root.'model/persistence/RequirementDAO.php';
-session_start();
+require_once $root.'model/persistence/RequirementDAO.php';
 $id=htmlspecialchars(filter_input(INPUT_POST, 'id'));
 $project=htmlspecialchars(filter_input(INPUT_POST, 'project'));
 RequirementDAO::delete($id);

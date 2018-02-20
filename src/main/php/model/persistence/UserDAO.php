@@ -1,6 +1,6 @@
 <?php
 require_once $root.'model/entities/User.php';
-require_once 'TimeZoneDAO.php';
+require_once 'Connection.php';
 
 class UserDAO
 {
@@ -16,18 +16,17 @@ class UserDAO
         $professional=$user->getProfessional();
         if(!UserDAO::validateUsername($username) || !UserDAO::validateEmail($email))
             return false;
-        TimeZoneDAO::create($time_zone);
         $admin=UserDAO::admins()=== 0;
-        $connection=Connection::getConnection();
-        if(!$statement=$connection->prepare('INSERT INTO user(username, password, name, email, language, time_zone, academic, professional, admin) VALUES(?, ?, ?, ?, ?, (SELECT id FROM time_zone WHERE name=?), ?, ?, ?);'))
+        $connection=Connection::get();
+        if(!$statement=$connection->prepare('INSERT INTO user(username, password, name, email, language, time_zone, academic, professional, admin) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);'))
             die($connection->error);
-        if(!$statement->bind_param('ssssssssi', $username, $password, $name, $email, $language, $time_zone, $academic, $professional, $admin) || !$statement->execute())
+        if(!$statement->bind_param('sssssissi', $username, $password, $name, $email, $language, $time_zone, $academic, $professional, $admin) || !$statement->execute())
             die($statement->error);
         return true;
     }
     public static function read($id)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT username, name, email, language, time_zone, academic, professional, admin FROM user WHERE id=?;'))
             die($connection->error);
         if(!$statement->bind_param('i', $id) || !$statement->execute() || !$result=$statement->get_result())
@@ -48,9 +47,20 @@ class UserDAO
         }
         return null;
     }
+    public static function readByUsername($username)
+    {
+        $connection=Connection::get();
+        if(!$statement=$connection->prepare('SELECT id FROM user WHERE username=?;'))
+            die($connection->error);
+        if(!$statement->bind_param('s', $username) || !$statement->execute() || !$result=$statement->get_result())
+            die($statement->error);
+        if($result->num_rows > 0)
+            return $result->fetch_array(MYSQLI_NUM)[0];
+        return null;
+    }
     public static function readAll()
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT id, username, name, admin FROM user;'))
             die($connection->error);
         if(!$statement->execute() || !$result=$statement->get_result())
@@ -78,11 +88,10 @@ class UserDAO
         $professional=$user->getProfessional();
         if(UserDAO::hasEmailBeenChanged($id, $email) && !UserDAO::validateEmail($email))
             return false;
-        TimeZoneDAO::create($time_zone);
-        $connection=Connection::getConnection();
-        if(!$statement=$connection->prepare('UPDATE user SET name=?, email=?, language=?, time_zone=(SELECT id FROM time_zone WHERE name=?), academic=?, professional=? WHERE id=?;'))
+        $connection=Connection::get();
+        if(!$statement=$connection->prepare('UPDATE user SET name=?, email=?, language=?, time_zone=?, academic=?, professional=? WHERE id=?;'))
             die($connection->error);
-        if(!$statement->bind_param('ssssssi', $name, $email, $language, $time_zone, $academic, $professional, $id) || !$statement->execute())
+        if(!$statement->bind_param('sssissi', $name, $email, $language, $time_zone, $academic, $professional, $id) || !$statement->execute())
             die($statement->error);
         return true;
     }
@@ -90,7 +99,7 @@ class UserDAO
     {
         if(!UserDAO::signIn(UserDAO::read($id)->getUsername(), $old_password))
             return false;
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('UPDATE user SET password=? WHERE id=?;'))
             die($connection->error);
         if(!$statement->bind_param('si', $new_password, $id) || !$statement->execute())
@@ -101,7 +110,7 @@ class UserDAO
     {
         if(!UserDAO::signIn(UserDAO::read($id)->getUsername(), $password))
             return false;
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('DELETE FROM user WHERE id=?;'))
             die($connection->error);
         if(!$statement->bind_param('i', $id) || !$statement->execute())
@@ -110,7 +119,7 @@ class UserDAO
     }
     public static function signIn($username, $password)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT id FROM user WHERE username=? and password=?;'))
             die($connection->error);
         if(!$statement->bind_param('ss', $username, $password) || !$statement->execute() || !$result=$statement->get_result())
@@ -121,7 +130,7 @@ class UserDAO
     }
     public static function validateUsername($username)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT * FROM user WHERE username=?;'))
             die($connection->error);
         if(!$statement->bind_param('s', $username) || !$statement->execute() || !$result=$statement->get_result())
@@ -130,7 +139,7 @@ class UserDAO
     }
     public static function validateEmail($email)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT * FROM user WHERE email=?;'))
             die($connection->error);
         if(!$statement->bind_param('s', $email) || !$statement->execute() || !$result=$statement->get_result())
@@ -139,7 +148,7 @@ class UserDAO
     }
     public static function hasEmailBeenChanged($id, $email)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT * FROM user WHERE id=? AND email=?;'))
             die($connection->error);
         if(!$statement->bind_param('is', $id, $email) || !$statement->execute() || !$result=$statement->get_result())
@@ -148,7 +157,7 @@ class UserDAO
     }
     public static function admins()
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('SELECT COUNT(*) FROM user WHERE admin=1;'))
             die($connection->error);
         if(!$statement->execute() || !$result=$statement->get_result())

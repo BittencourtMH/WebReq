@@ -1,28 +1,28 @@
 <?php
 $section='settings';
-$page='profile';
+$page='user-profile';
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-require_once $root.'view/templates/header.php';
+require_once $root.'view/templates/language.php';
+$title=SETTINGS;
 $nav=[''=>SETTINGS];
-require_once $root.'view/templates/path.php';
-require_once $root.'view/templates/TimeZone.php';
+require_once $root.'view/templates/header.php';
 ?>
 <div class="row my-4">
     <?php require_once $root.'view/templates/user.php'?>
-    <div class="col-11 col-sm-11 col-md-11 col-lg-8 col-xl-8 mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 px-5">
         <h1 class="text-center mb-4"><?php echo SETTINGS?></h1>
-        <form class="margin-bottom-medium" id="form-profile" action="../../controller/controller-user-profile.php" method="post" novalidate>
-            <div class="form-group" id="form-name">
+        <form id="form" action="../../controller/controller-user-profile.php" method="post">
+            <div class="form-group">
                 <label id="label-name" for="name"><?php echo NAME?></label>
-                <input class="form-control" id="name" name="name" type="text" placeholder="<?php echo NAME?>" value="<?php echo $user->getName()?>" required />
-                <div class="invalid-feedback" id="help-name">Please provide a valid name.</div>
+                <input class="form-control" id="name" name="name" type="text" placeholder="<?php echo NAME?>" value="<?php echo $user->getName()?>" oninput="hideValidation(event)" />
+                <div class="invalid-feedback" id="help-name"><?php echo INVALID_NAME?></div>
             </div>
-            <div class="form-group" id="form-email">
+            <div class="form-group">
                 <label id="label-email" for="email"><?php echo EMAIL?></label>
-                <input class="form-control" id="email" name="email" type="text" placeholder="<?php echo EMAIL?>" value="<?php echo $user->getEmail()?>" required>
-                <div class="invalid-feedback" id="help-email">Please provide a valid email.</div>
+                <input class="form-control" id="email" name="email" type="text" placeholder="<?php echo EMAIL?>" value="<?php echo $user->getEmail()?>" oninput="hideValidation(event)" />
+                <div class="invalid-feedback" id="help-email"><?php echo INVALID_EMAIL?></div>
             </div>
-            <div class="form-group" id="form-language">
+            <div class="form-group">
                 <label for="language"><?php echo LANGUAGE?></label>
                 <select class="form-control form-control-sm" id="language" name="language" value="<?php echo $user->getLanguage()?>">
                     <option value="en" <?php if($user->getLanguage()=== 'en') echo 'selected'?>>English</option>
@@ -30,24 +30,24 @@ require_once $root.'view/templates/TimeZone.php';
                     <option value="pt" <?php if($user->getLanguage()=== 'pt') echo 'selected'?>>Português</option>
                 </select>
             </div>
-            <div class="form-group" id="form-time-zone">
+            <div class="form-group">
                 <label for="time-zone"><?php echo TIME_ZONE?></label>
                 <select class="form-control form-control-sm" id="time-zone" name="time-zone">
                     <?php
-                    TimeZone::get($user->getTimeZone());
+                    ControllerTimeZone::getAll($user->getTimeZone());
                     ?>
                 </select>
             </div>
-            <div class="form-group" id="form-academic">
+            <div class="form-group">
                 <label for="academic"><?php echo ACADEMIC_EDUCATION?></label>
                 <textarea class="form-control" id="academic" name="academic" placeholder="<?php echo ACADEMIC_EDUCATION?>" rows="10"><?php echo $user->getAcademic()?></textarea>
             </div>
-            <div class="form-group" id="form-professional">
+            <div class="form-group">
                 <label for="professional"><?php echo PROFESSIONAL_EXPERIENCE?></label>
                 <textarea class="form-control" id="professional" name="professional" placeholder="<?php echo PROFESSIONAL_EXPERIENCE?>" rows="10"><?php echo $user->getProfessional()?></textarea>
             </div>
-            <div class="text-center">
-                <button class="btn btn-success margin-top-small" id="save" type="submit"><?php echo SAVE?></button>
+            <div class="text-center mt-4">
+                <button class="btn btn-success" type="submit"><?php echo SAVE?></button>
             </div>
         </form>
     </div>

@@ -1,7 +1,7 @@
 <?php
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-include_once $root.'model/persistence/ProjectDAO.php';
-include_once $root.'model/persistence/UserDAO.php';
+require_once $root.'model/persistence/ProjectDAO.php';
+require_once $root.'model/persistence/UserDAO.php';
 session_start();
 $user_id=$_SESSION['user'];
 $password=User::encryptPassword(htmlspecialchars(filter_input(INPUT_POST, 'password')));

@@ -5,8 +5,8 @@
         $id=$project->getId();
         foreach($pages as $link=> $title)
         {
-            $settings=$subsection=== $link ? 'active' : '';
-            echo "<a class=\"nav-link $settings\" href=\"$link.php?id=$id\">$title</a>";
+            $settings=$subsection===$link ? ' active' : '';
+            echo "<a class='nav-link$settings' href='$link.php?id=$id'>$title</a>";
         }
         ?>
     </nav>

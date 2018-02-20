@@ -1,56 +1,34 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>WebReq - Requirements Management System</title>
-        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/estilo.css" rel="stylesheet">
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barra" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">WebReq</a>
-                </div>
-                <div class="collapse navbar-collapse" id="barra">
-                    <ul class="nav navbar-nav">
-                        <li><a href="projects.html">Projects</a></li>
-                        <li><a href="users.html">Users</a></li>
-                        <li><a href="#">Help</a></li>
-                        <li class="active"><a href="about.html">About</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">    
-                        <li><a href="settings.html">Settings</a></li>
-                        <li><a href="index.html">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div class="container text-center margin-bottom-medium">
-            <h1 class="margin-bottom-medium">WebReq</h1>
-            <h3>Version</h3>
-            <h5>0.1 Alpha</h5>
-            <h3>Update</h3>
-            <h5>19 June 2017</h5>
-            <h3>Developers</h3>
-            <h5>Marcelo Henrique Bittencourt</h5>
-            <h5>Sergio Souza Novak</h5>
-            <h3>License</h3>
-            <h5><a href="https://github.com/marcelohbittencourt/WebReq/blob/master/LICENSE">GNU Affero General Public License</a></h5>
-            <h3>Source code</h3>
-            <h5><a href="https://github.com/marcelohbittencourt/WebReq">GitHub</a></h5>
-            <h3>Third-party libraries</h3>
-            <h5>Bootstrap: <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE">MIT License</a></h5>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-    </body>
-</html>
+<?php
+$section='unlogged';
+$root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
+require_once $root.'view/templates/language.php';
+$title=ABOUT;
+$nav=[''=>ABOUT];
+require_once $root.'view/templates/header.php';
+setlocale(LC_TIME, $language);
+?>
+<div class="my-4 px-5">
+    <h1 class="text-center mb-4">WebReq</h1>
+    <dl>
+        <dt class="mt-3"><?php echo VERSION?></dt>
+        <dd>1.0 Beta</dd>
+        <dt class="mt-3"><?php echo UPDATE?></dt>
+        <dd><?php echo strftime(DATE_FORMAT, mktime(0, 0, 0, 2, 19, 2018))?></dd>
+        <dt class="mt-3"><?php echo DEVELOPERS?></dt>
+        <dd>Marcelo Henrique Bittencourt<br />Sergio Souza Novak</dd>
+        <dt class="mt-3"><?php echo LICENSE?></dt>
+        <dd><a href="https://github.com/marcelohbittencourt/WebReq/blob/master/LICENSE">GNU Affero General Public License</a></dd>
+        <dt class="mt-3"><?php echo SOURCE_CODE?></dt>
+        <dd><a href="https://github.com/marcelohbittencourt/WebReq">GitHub</a></dd>
+        <dt class="mt-3"><?php echo THIRD_PARTY_LIBRARIES?></dt>
+        <dd>
+            <ul>
+                <li>Bootstrap: <a href="https://getbootstrap.com/docs/4.0/about/license">MIT License</a></li>
+                <li>jQuery: <a href="https://jquery.org/license">MIT License</a></li>
+                <li>Popper.js: <a href="https://github.com/FezVrasta/popper.js/blob/master/LICENSE.md">MIT License</a></li>
+            </ul>
+        </dd>
+    </dl>
+</div>
+<?php
+require_once $root.'view/templates/footer.php';

@@ -1,9 +1,10 @@
 <?php
-$section=$page='users';
+$section='users';
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-require_once $root.'view/templates/header.php';
+require_once $root.'view/templates/language.php';
+$title=USERS;
 $nav=[''=>USERS];
-require_once $root.'view/templates/path.php';
+require_once $root.'view/templates/header.php';
 ?>
 <div class="my-4 px-5">
     <h1 class="text-center mb-4"><?php echo USERS?></h1>
@@ -14,7 +15,7 @@ require_once $root.'view/templates/path.php';
             <th><?php echo TYPE?></th>
         </tr>
         <?php
-        ControllerUsers::getAll();
+        ControllerUser::getAll();
         ?>
     </table>
 </div>

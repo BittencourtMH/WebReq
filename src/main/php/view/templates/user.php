@@ -1,11 +1,11 @@
-<div class="col-11 col-sm-11 col-md-11 col-lg-3 col-xl-3 mx-auto">
+<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 px-5">
     <nav class="nav nav-pills flex-column">
         <?php
-        $pages=array('profile'=>PROFILE, 'password'=>PASSWORD, 'account'=>ACCOUNT);
+        $pages=array('user-profile'=>PROFILE, 'user-password'=>PASSWORD, 'user-account'=>ACCOUNT);
         foreach($pages as $link=> $title)
         {
-            $settings=$page=== $link ? 'active' : '';
-            echo "<a class=\"nav-link $settings\" href=\"user-$link.php\">$title</a>";
+            $settings=$page=== $link ? ' active' : '';
+            echo "<a class='nav-link$settings' href='$link.php'>$title</a>";
         }
         ?>
     </nav>

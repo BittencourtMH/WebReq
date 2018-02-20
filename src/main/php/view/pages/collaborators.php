@@ -1,33 +1,29 @@
 <?php
 $section='projects';
-$subsection=$page='collaborators';
+$subsection='collaborators';
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-include_once $root.'controller/ControllerProjects.php';
-include_once $root.'controller/ControllerRequirements.php';
-$project=ControllerProjects::get(htmlspecialchars(filter_input(INPUT_GET, 'id')));
-$manager=$project->getManager();
-$nav=['projects.php'=>'Projects', ''=>$project->getName()];
-include_once $root.'view/templates/header.php';
+require_once $root.'view/templates/language.php';
+$project=ControllerProject::get(htmlspecialchars(filter_input(INPUT_GET, 'id')));
+$title=$project->getName();
+$nav=['projects.php'=>PROJECTS, ''=>$project->getName()];
+require_once $root.'view/templates/header.php';
 ?>
 <div class="row my-4">
-    <?php include_once $root.'view/templates/project.php'?>
+    <?php require_once $root.'view/templates/project.php'?>
     <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 px-5">
-        <h1 class="text-center mb-4">Collaborators</h1>
-        <a class="btn btn-info mb-3" href="requirement-new.php?id=<?php echo $project->getId()?>" role="button">New requirement</a>
+        <h1 class="text-center mb-4"><?php echo COLLABORATORS?></h1>
+        <a class="btn btn-info mb-3" href="collaborator-new.php?id=<?php echo $project->getId()?>" role="button"><?php echo NEW_COLLABORATOR?></a>
         <table class="table table-bordered">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Version</th>
-                <th>Status</th>
-                <th>Priority</th>
-                <th>Date modified</th>
+                <th><?php echo USER?></th>
+                <th><?php echo ROLE?></th>
+                <th><?php echo STATUS?></th>
             </tr>
             <?php
-            ControllerRequirements::getAll($project->getId());
+            ControllerCollaborator::getAll($project->getId());
             ?>
         </table>
     </div>
 </div>
 <?php
-include_once $root.'view/templates/footer.php';
+require_once $root.'view/templates/footer.php';

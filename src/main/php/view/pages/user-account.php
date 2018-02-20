@@ -1,27 +1,28 @@
 <?php
 $section='settings';
-$page='account';
+$page='user-account';
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-require_once $root.'view/templates/header.php';
+require_once $root.'view/templates/language.php';
+$title=SETTINGS;
 $nav=[''=>SETTINGS];
-require_once $root.'view/templates/path.php';
+require_once $root.'view/templates/header.php';
 ?>
 <div class="row my-4">
     <?php require_once $root.'view/templates/user.php'?>
-    <div class="col-11 col-sm-11 col-md-11 col-lg-8 col-xl-8 mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 px-5">
         <h1 class="text-center mb-4"><?php echo SETTINGS?></h1>
-        <form class="margin-bottom-medium" id="form-account" action="../../controller/controller-user-account.php" method="post" novalidate>
+        <form id="form" action="../../controller/controller-user-account.php" method="post">
             <div class="alert alert-danger" role="alert"><?php echo WARNING_USER?></div>
-            <div class="form-group" id="form-password">
+            <div class="form-group">
                 <label id="label-password" for="password"><?php echo PASSWORD?></label>
-                <input class="form-control" id="password" name="password" type="password" placeholder="<?php echo PASSWORD?>" required>
-                <div class="invalid-feedback" id="help-password">Please provide a valid password.</div>
+                <input class="form-control" id="password" name="password" type="password" placeholder="<?php echo PASSWORD?>" oninput="hideValidation(event)" />
+                <div class="invalid-feedback" id="help-password"><?php echo INVALID_PASSWORD?></div>
             </div>
-            <div class="text-center">
-                <button class="btn btn-danger margin-top-small" id="save" type="submit"><?php echo DELETE_ACCOUNT?></button>
+            <div class="text-center mt-4">
+                <button class="btn btn-danger" type="submit"><?php echo DELETE_ACCOUNT?></button>
             </div>
         </form>
     </div>
 </div>
 <?php
-include_once $root.'view/templates/footer.php';
+require_once $root.'view/templates/footer.php';

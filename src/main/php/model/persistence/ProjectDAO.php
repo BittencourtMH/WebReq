@@ -1,7 +1,6 @@
 <?php
-include_once $root.'model/entities/Project.php';
-include_once $root.'model/entities/User.php';
-include_once 'Connection.php';
+require_once $root.'model/entities/Project.php';
+require_once 'Connection.php';
 
 class ProjectDAO
 {
@@ -10,40 +9,41 @@ class ProjectDAO
         $name=$project->getName();
         $start_date=$project->getStartDate()->format('Y-m-d');
         $end_date=$project->getEndDate()->format('Y-m-d');
+        $public=$project->getPublic();
+        $creator=$project->getCreator();
         $manager=$project->getManager();
-        $connection=Connection::getConnection();
-        if(!$statement=$connection->prepare('INSERT INTO project(name, start_date, end_date, manager) VALUES(?, ?, ?, ?);'))
+        $connection=Connection::get();
+        if(!$statement=$connection->prepare('INSERT INTO project(name, start_date, end_date, public, creator, manager) VALUES(?, ?, ?, ?, ?, ?);'))
             die($connection->error);
-        if(!$statement->bind_param('sssi', $name, $start_date, $end_date, $manager) || !$statement->execute())
+        if(!$statement->bind_param('sssiii', $name, $start_date, $end_date, $public, $creator, $manager) || !$statement->execute())
             die($statement->error);
         return true;
     }
     public static function read($id)
     {
-        $connection=Connection::getConnection();
-        if(!$statement=$connection->prepare('SELECT project.name, start_date, end_date, user.id, user.name FROM project, user WHERE manager=user.id AND project.id=?;'))
+        $connection=Connection::get();
+        if(!$statement=$connection->prepare('SELECT name, start_date, end_date, public, creator, manager FROM project WHERE project.id=?;'))
             die($connection->error);
         if(!$statement->bind_param('i', $id) || !$statement->execute() || !$result=$statement->get_result())
             die($statement->error);
         if($row=$result->fetch_array(MYSQLI_NUM))
         {
             $project=new Project();
-            $manager=new User();
             $project->setId($id);
             $project->setName($row[0]);
             $project->setStartDate(new DateTime($row[1]));
             $project->setEndDate(new DateTime($row[2]));
-            $manager->setId($row[3]);
-            $manager->setName($row[4]);
-            $project->setManager($manager);
+            $project->setPublic($row[3]=== 1);
+            $project->setCreator($row[4]);
+            $project->setManager($row[5]);
             return $project;
         }
         return null;
     }
     public static function readAll()
     {
-        $connection=Connection::getConnection();
-        if(!$statement=$connection->prepare('SELECT id, name, start_date, end_date FROM project;'))
+        $connection=Connection::get();
+        if(!$statement=$connection->prepare('SELECT id, name, start_date, end_date, public FROM project;'))
             die($connection->error);
         if(!$statement->execute() || !$result=$statement->get_result())
             die($statement->error);
@@ -55,6 +55,7 @@ class ProjectDAO
             $project->setName($row[1]);
             $project->setStartDate(new DateTime($row[2]));
             $project->setEndDate(new DateTime($row[3]));
+            $project->setPublic($row[4]);
             $projects[$i]=$project;
         }
         return $projects;
@@ -65,16 +66,17 @@ class ProjectDAO
         $name=$project->getName();
         $start_date=$project->getStartDate()->format('Y-m-d');
         $end_date=$project->getEndDate()->format('Y-m-d');
-        $connection=Connection::getConnection();
-        if(!$statement=$connection->prepare('UPDATE project SET name=?, start_date=?, end_date=? WHERE id=?;'))
+        $public=$project->getPublic();
+        $connection=Connection::get();
+        if(!$statement=$connection->prepare('UPDATE project SET name=?, start_date=?, end_date=?, public=? WHERE id=?;'))
             die($connection->error);
-        if(!$statement->bind_param('sssi', $name, $start_date, $end_date, $id) || !$statement->execute())
+        if(!$statement->bind_param('sssii', $name, $start_date, $end_date, $public, $id) || !$statement->execute())
             die($statement->error);
         return true;
     }
     public static function delete($id)
     {
-        $connection=Connection::getConnection();
+        $connection=Connection::get();
         if(!$statement=$connection->prepare('DELETE FROM project WHERE id=?;'))
             die($connection->error);
         if(!$statement->bind_param('i', $id) || !$statement->execute())

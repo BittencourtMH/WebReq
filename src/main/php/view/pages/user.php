@@ -1,13 +1,11 @@
 <?php
 $section='users';
-$page='user';
 $root=filter_input(INPUT_SERVER, 'DOCUMENT_ROOT').'/webreq/src/main/php/';
-require_once $root.'controller/ControllerTimeZone.php';
-require_once $root.'controller/ControllerUsers.php';
-$user_profile=ControllerUsers::get(htmlspecialchars(filter_input(INPUT_GET, 'id')));
+require_once $root.'view/templates/language.php';
+$user_profile=ControllerUser::get(htmlspecialchars(filter_input(INPUT_GET, 'id')));
+$title=$user_profile->getName();
+$nav=['users.php'=>USERS, ''=>$user_profile->getName()];
 require_once $root.'view/templates/header.php';
-$nav=['users.php'=>USERS, ''=>$user_profile->getUsername()];
-require_once $root.'view/templates/path.php';
 ?>
 <div class="my-4 px-5">
     <h1 class="text-center mb-4">User</h1>

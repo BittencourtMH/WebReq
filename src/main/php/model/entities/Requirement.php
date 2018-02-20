@@ -127,25 +127,19 @@ class Requirement
     {
         if($this->type=== 'F')
             return 'FR-'.$this->number;
-        if($this->type=== 'N')
-            return 'NFR-'.$this->number;
-        return 'OR-'.$this->number;
+        return $this->type=== 'N' ? 'NFR-'.$this->number : 'OR-'.$this->number;
     }
     public function type()
     {
         if($this->type=== 'F')
             return FUNCTIONAL;
-        if($this->type=== 'N')
-            return NON_FUNCTIONAL;
-        return ORGANIZATIONAL;
+        return $this->type=== 'N' ? NON_FUNCTIONAL : ORGANIZATIONAL;
     }
     public function status()
     {
         if($this->status=== 'S')
             return SUBMITTED;
-        if($this->status=== 'P')
-            return PENDING;
-        return FINISHED;
+        return $this->status=== 'P' ? PENDING : FINISHED;
     }
     public function priority()
     {

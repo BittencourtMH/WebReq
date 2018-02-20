@@ -2,7 +2,7 @@
 
 class Project
 {
-    private $id, $name, $startDate, $endDate, $manager;
+    private $id, $name, $startDate, $endDate, $public, $creator, $manager;
     public function getId()
     {
         return $this->id;
@@ -18,6 +18,14 @@ class Project
     public function getEndDate()
     {
         return $this->endDate;
+    }
+    public function getPublic()
+    {
+        return $this->public;
+    }
+    public function getCreator()
+    {
+        return $this->creator;
     }
     public function getManager()
     {
@@ -38,6 +46,14 @@ class Project
     public function setEndDate($endDate)
     {
         $this->endDate=$endDate;
+    }
+    public function setPublic($public)
+    {
+        $this->public=$public;
+    }
+    public function setCreator($creator)
+    {
+        $this->creator=$creator;
     }
     public function setManager($manager)
     {
